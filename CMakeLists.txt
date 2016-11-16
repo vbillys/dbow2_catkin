@@ -9,10 +9,12 @@ include(ExternalProject)
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 
 ExternalProject_Add(dbow2_src
-  GIT_REPOSITORY git@github.com:dorian3d/DBoW2.git
+  #GIT_REPOSITORY https://github.com/dorian3d/DLib.git
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CATKIN_DEVEL_PREFIX}
   BUILD_COMMAND CXXFLAGS=-i${CATKIN_DEVEL_PREFIX}/include make
-  INSTALL_COMMAND make install
+  #INSTALL_COMMAND ls #make install
+  INSTALL_COMMAND cd ../dbow2_src/lib/ &&
+    cp libDBoW2.so ${CATKIN_DEVEL_PREFIX}/lib
 )
 ExternalProject_CatkinInstall(dbow2_src)
 
