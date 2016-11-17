@@ -7,6 +7,9 @@ catkin_simple(ALL_DEPS_REQUIRED)
 include(ExternalProject)
 
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/DBoW2)
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/DBoW2/DBoW2)
+file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/DBoW2/DUtils)
 
 ExternalProject_Add(dbow2_src
   #GIT_REPOSITORY https://github.com/dorian3d/DLib.git
@@ -14,7 +17,16 @@ ExternalProject_Add(dbow2_src
   BUILD_COMMAND CXXFLAGS=-i${CATKIN_DEVEL_PREFIX}/include make
   #INSTALL_COMMAND ls #make install
   INSTALL_COMMAND cd ../dbow2_src/lib/ &&
-    cp libDBoW2.so ${CATKIN_DEVEL_PREFIX}/lib
+    pwd &&
+    cp libDBoW2.so ${CATKIN_DEVEL_PREFIX}/lib &&
+    cd ../DBoW2/ &&
+    pwd &&
+    ls &&
+    sh -c "cp *.h ${CATKIN_DEVEL_PREFIX}/include/DBoW2/DBoW2" &&
+    cd ../DUtils/ &&
+    pwd &&
+    ls &&
+    sh -c "cp *.h ${CATKIN_DEVEL_PREFIX}/include/DBoW2/DUtils"
 )
 ExternalProject_CatkinInstall(dbow2_src)
 
